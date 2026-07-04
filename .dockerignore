@@ -1,0 +1,43 @@
+# ── Python ──
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.venv
+**/venv
+backend/*.egg-info
+
+# ── Node ──
+**/node_modules
+frontend/dist
+
+# ── IDE & OS ──
+.idea
+.vscode
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Git & CI ──
+.git
+.gitignore
+
+# ── Environment ──
+.env
+.env.local
+.env.*.local
+
+# ── Docker ──
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# ── Uploads & Cache (handled via named volumes) ──
+backend/uploads
+fastembed_cache
+
+# ── Documentation ──
+*.md
+architecture.excalidraw.png
+spec.md

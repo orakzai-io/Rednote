@@ -1,0 +1,54 @@
+# ==============================================================================
+# Core Framework & ASGI Server
+# ==============================================================================
+fastapi==0.136.3          # Web framework for building fast, high-performance APIs
+uvicorn[standard]==0.48.0 # High-performance ASGI server to run the FastAPI application
+python-multipart==0.0.29   # Required by FastAPI to support multipart form uploads (e.g., file uploads)
+aiofiles==24.1.0           # Required for static file serving support in FastAPI
+
+# ==============================================================================
+# Authentication (FastAPI Users JWT-based)
+# ==============================================================================
+fastapi-users[sqlalchemy]==15.0.5  # Production-ready JWT-based authentication & user management system
+argon2-cffi==25.1.0       # Argon2 secure password hashing library required for user security
+pyjwt[crypto]==2.13.0      # JSON Web Token encoding and decoding for secure user sessions
+
+# ==============================================================================
+# Database & ORM (SQLAlchemy 2.0 + asyncpg + pgvector)
+# ==============================================================================
+SQLAlchemy[asyncio]==2.0.50 # Modern SQL toolkit & ORM with full native asyncio support
+asyncpg==0.31.0            # High-performance async PostgreSQL driver for Python
+pgvector==0.4.2            # Vector similarity search extension integration for SQLAlchemy (pgvector)
+alembic==1.18.4            # Database migration tool for managing schema changes over time
+
+# ==============================================================================
+# AI, Embeddings & LLM (Groq & FastEmbed)
+# ==============================================================================
+fastembed==0.8.0          # Lightweight, fast library for generating local embeddings (BAAI/bge-small-en-v1.5)
+groq==1.4.0                # Official client SDK for Groq API to perform ultra-fast llama3-70b-8192 inference
+
+# ==============================================================================
+# File Parsing (PDF, DOCX)
+# ==============================================================================
+pymupdf==1.27.2.3         # PDF parser (MuPDF engine) to extract text contents from uploaded PDFs
+python-docx==1.2.0         # Document parsing utility to read text content from Microsoft Word (.docx) files
+
+# ==============================================================================
+# Settings, Validation & Utilities
+# ==============================================================================
+pydantic==2.13.4           # Data validation and settings management using Python type annotations
+pydantic-settings==2.14.1  # Loads configuration and secrets from system environment or .env files
+
+# ==============================================================================
+# Testing
+# ==============================================================================
+pytest==8.3.4              # Testing framework for Python
+pytest-asyncio==0.25.3     # Async support for pytest
+httpx==0.28.1              # HTTP client for testing FastAPI with ASGI transport
+aiosqlite==0.21.0          # Async SQLite driver for in-memory test databases
+
+# ==============================================================================
+# Development Tooling (Type Checking & Linting)
+# ==============================================================================
+ruff==0.15.15              # Extremely fast linter and code formatter (zero warnings target)
+pyright==1.1.411           # Static type checker for Python to enforce Pyright strict rules

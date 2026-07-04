@@ -1,0 +1,7 @@
+This is a sample text file for testing document parsing.
+It contains multiple lines of text to verify that the parse_txt function correctly extracts and returns the full content.
+
+Each paragraph should be preserved in the output.
+Special characters: é ñ ü 测试 русский
+Numbers: 42 3.14159 -273.15
+Symbols: @ # $ % & * ( ) [ ] { } < > + - = / \ | ; : ' " , . ? ! ~ ` ^ _
