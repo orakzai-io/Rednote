@@ -80,9 +80,9 @@ def test_invalid_chunk_size_zero():
 
 
 def test_invalid_overlap_greater_than_chunk_size():
-    """overlap >= chunk_size should default to 50."""
+    """overlap >= chunk_size should default to a value less than chunk_size."""
     text = " ".join([f"word{i}" for i in range(100)])
-    chunks = chunk_text(text, chunk_size=30, overlap=30)  # overlap corrected to 50 internally
+    chunks = chunk_text(text, chunk_size=30, overlap=30)  # overlap corrected to less than chunk_size internally
     assert len(chunks) > 1
 
 

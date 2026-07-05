@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 from uuid import UUID
+from typing import Any, cast
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+
 
 from db.session import get_async_session
 from models.db import User, Document
@@ -76,7 +78,7 @@ async def claim_guest_docs(
     await db.commit()
 
     # 2. Clean up temporary guest user record from the users table
-    guest_stmt = select(User).where(User.id == guest_uuid)
+    guest_stmt = select(User).where(cast(Any, User.id) == guest_uuid)
     result = await db.execute(guest_stmt)
     guest_user = result.scalars().first()
     

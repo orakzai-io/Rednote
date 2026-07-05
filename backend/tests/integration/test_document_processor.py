@@ -21,6 +21,12 @@ def mock_db():
     db = AsyncMock()
     # Make db.add a no-op side effect that actually stores the object
     db.add = MagicMock()
+    
+    # Default execute to return a result that yields None for scalars().first()
+    mock_result = MagicMock()
+    mock_result.scalars.return_value.first.return_value = None
+    db.execute.return_value = mock_result
+    
     return db
 
 

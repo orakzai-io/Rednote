@@ -20,7 +20,7 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]
     if chunk_size <= 0:
         chunk_size = 500
     if overlap >= chunk_size or overlap < 0:
-        overlap = 50
+        overlap = min(50, chunk_size - 1) if chunk_size > 1 else 0
 
     chunks: list[str] = []
     num_words = len(words)

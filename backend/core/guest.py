@@ -1,3 +1,4 @@
+from typing import Any, cast
 from uuid import UUID
 from fastapi import Depends, HTTPException, Header, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -39,7 +40,7 @@ async def get_current_user_or_guest(
         )
 
     # Lookup guest user in database
-    stmt = select(User).where(User.id == guest_uuid)
+    stmt = select(User).where(cast(Any, User.id) == guest_uuid)
     result = await db.execute(stmt)
     guest_user = result.scalars().first()
 

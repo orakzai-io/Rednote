@@ -2,8 +2,9 @@
 from datetime import datetime
 from uuid import UUID
 import uuid
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from fastapi_users import schemas
+
 
 class UserRead(schemas.BaseUser[uuid.UUID]):
     pass
@@ -31,8 +32,7 @@ class DocumentResponse(BaseModel):
     status: str
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 

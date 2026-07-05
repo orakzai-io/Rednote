@@ -61,7 +61,8 @@ async def test_stream_chat_with_context(groq_service, mock_groq_client):
     assert "role" in system_msg and system_msg["role"] == "system"
     assert "The sky is blue." in system_msg["content"]
     assert "Grass is green." in system_msg["content"]
-    assert system_msg["content"].startswith("<system>")
+    assert "<system>" in system_msg["content"]
+    assert "<anchor>" in system_msg["content"]
 
     # Verify the user message is included
     user_msg = call_kwargs["messages"][1]
