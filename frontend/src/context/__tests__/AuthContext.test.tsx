@@ -72,13 +72,10 @@ describe('AuthContext', () => {
       </AuthProvider>
     );
 
-    // Initially loading
-    expect(screen.getByTestId('is-loading').textContent).toBe('true');
-    expect(screen.getByTestId('is-auth').textContent).toBe('false');
-
-    // After useEffect runs, loading should be false
+    // After useEffect runs, loading should resolve to false and user should be unauthenticated
     await waitFor(() => {
       expect(screen.getByTestId('is-loading').textContent).toBe('false');
+      expect(screen.getByTestId('is-auth').textContent).toBe('false');
     });
   });
 

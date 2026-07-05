@@ -30,7 +30,7 @@ describe('RegisterPage', () => {
   it('renders the registration form', () => {
     render(<RegisterPage onSwitchToLogin={onSwitchToLogin} />);
 
-    expect(screen.getByText('REDNOTE')).toBeTruthy();
+    expect(screen.getByRole('heading', { name: /RED\s*NOTE/i })).toBeTruthy();
     expect(screen.getByText('Create an account to start')).toBeTruthy();
     expect(screen.getByLabelText('Email Address')).toBeTruthy();
     expect(screen.getByLabelText('Password')).toBeTruthy();

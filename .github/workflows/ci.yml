@@ -50,7 +50,7 @@ jobs:
       - name: Lint with Ruff
         run: ruff check .
 
-      - name: Type check with Pyright (strict)
+      - name: Type check with Pyright (basic)
         run: pyright
 
       - name: Run tests with pytest
