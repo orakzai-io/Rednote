@@ -33,21 +33,15 @@ app.include_router(chat.router)
 app.include_router(auth.router)
 
 
-@app.get("/")
-async def root():
-    return {"status": "running"}
-
-
-@app.get("/health")
-async def health():
-    return {"status": "running"}
-
-
 # Serve frontend static files in single-container mode (e.g. Hugging Face Spaces).
 # Must be mounted AFTER all API routes to avoid catching API requests.
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+else:
+    @app.get("/")
+    async def root():
+        return {"status": "running"}
 
 
 if __name__ == "__main__":
