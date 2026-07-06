@@ -50,6 +50,8 @@ export function ChatArea({
         activeDocName={activeDocName}
         hasMessages={messages.length > 0}
         onClearChat={onClearChat}
+        onToggleSidebar={onToggleSidebar}
+        sidebarOpen={sidebarOpen}
       />
 
       <MessageList

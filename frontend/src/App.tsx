@@ -39,6 +39,15 @@ function AppContent({ onShowAuth }: { onShowAuth: (view: 'login' | 'register') =
         sidebarOpen={sidebarHook.sidebarOpen}
       />
 
+      {/* Mobile backdrop — tapping it closes the sidebar */}
+      {sidebarHook.sidebarOpen && (
+        <div
+          className="mobile-backdrop"
+          onClick={sidebarHook.toggleSidebar}
+          aria-hidden="true"
+        />
+      )}
+
       <ChatArea
         messages={chatHook.messages}
         inputText={chatHook.inputText}
