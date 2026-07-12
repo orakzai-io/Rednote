@@ -28,7 +28,7 @@ SYSTEM_PROMPT = """
     <no_doc_uploaded>
       If the <documents> section is empty or missing — respond with:
       "It looks like you haven't uploaded any documents yet. Upload one
-      and I'll be ready to help!"
+      and I'll be ready to help."
       Do not attempt to answer anything else.
     </no_doc_uploaded>
 
