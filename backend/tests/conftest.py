@@ -28,7 +28,7 @@ from core.config import settings
 # ── Override settings for testing ──────────────────────────────────
 # Force test values before any module imports use settings
 settings.DATABASE_URL = "sqlite+aiosqlite:///:memory:"
-settings.UPLOAD_DIR = "/tmp/test_notebook_uploads"
+settings.UPLOAD_DIR = "/tmp/test_rednote_uploads"
 settings.FASTEMBED_CACHE_PATH = "/tmp/test_fastembed_cache"
 settings.SECRET_KEY = "test-secret-key-for-testing-only"
 settings.GROQ_API_KEY = "test-groq-key"

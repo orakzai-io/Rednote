@@ -1,8 +1,8 @@
-# ── CI/CD Pipeline for Notebook RAG App ─────────────────────────────────
-# Runs on every push to main and on all pull requests.
-# Backend tests use SQLite in-memory (no external DB needed).
-# Groq API is mocked in tests — no API key required for CI.
-# ─────────────────────────────────────────────────────────────────────────
+  # ── CI/CD Pipeline for Rednote RAG App ──────────────────────────────────
+  # Runs on every push to main and on every pull request.
+  # Backend tests use SQLite in-memory (no external DB needed).
+  # Groq API is mocked in tests — no API key required for CI.
+  # ─────────────────────────────────────────────────────────────────────────
 
 name: CI/CD
 
@@ -14,9 +14,10 @@ on:
 
 env:
   # These match the docker-compose defaults
-  POSTGRES_USER: notebook
-  POSTGRES_PASSWORD: notebook
-  POSTGRES_DB: notebook
+  POSTGRES_USER: rednote
+  POSTGRES_PASSWORD: rednote
+  POSTGRES_DB: rednote
+  DATABASE_URL: postgresql+asyncpg://rednote:rednote@localhost:5432/rednote
   SECRET_KEY: ci-secret-key-not-used-in-production
   GROQ_API_KEY: gsk_ci_mock_key
 
@@ -111,7 +112,7 @@ jobs:
           context: .
           file: backend/Dockerfile.backend
           push: false
-          tags: notebook-backend:ci
+          tags: rednote-backend:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -121,7 +122,7 @@ jobs:
           context: .
           file: frontend/Dockerfile.frontend
           push: false
-          tags: notebook-frontend:ci
+          tags: rednote-frontend:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -149,7 +150,7 @@ jobs:
           context: .
           file: backend/Dockerfile.backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/notebook-backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/rednote-backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -159,7 +160,7 @@ jobs:
           context: .
           file: frontend/Dockerfile.frontend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/notebook-frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/rednote-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -170,7 +171,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            cd /opt/notebook
+            cd /opt/rednote
             # Pull latest images
             docker compose pull
             # Recreate containers with zero-downtime

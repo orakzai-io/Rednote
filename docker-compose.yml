@@ -2,18 +2,18 @@ services:
   # ── PostgreSQL with pgvector ──────────────────────────────────────
   db:
     image: pgvector/pgvector:pg17
-    container_name: notebook-db
+    container_name: rednote-db
     restart: unless-stopped
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-notebook}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-notebook}
-      POSTGRES_DB: ${POSTGRES_DB:-notebook}
+      POSTGRES_USER: ${POSTGRES_USER:-rednote}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rednote}
+      POSTGRES_DB: ${POSTGRES_DB:-rednote}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-notebook} -d ${POSTGRES_DB:-notebook}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-rednote} -d ${POSTGRES_DB:-rednote}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,14 +24,14 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile.backend
-    container_name: notebook-backend
+    container_name: rednote-backend
     restart: unless-stopped
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     env_file:
       - backend/.env
     environment:
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-notebook}:${POSTGRES_PASSWORD:-notebook}@db:5432/${POSTGRES_DB:-notebook}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-rednote}:${POSTGRES_PASSWORD:-rednote}@db:5432/${POSTGRES_DB:-rednote}
       UPLOAD_DIR: /app/uploads
       FASTEMBED_CACHE_PATH: /app/fastembed_cache
       UVICORN_WORKERS: ${UVICORN_WORKERS:-4}
@@ -56,7 +56,7 @@ services:
       dockerfile: frontend/Dockerfile.frontend
       args:
         VITE_API_URL: /api
-    container_name: notebook-frontend
+    container_name: rednote-frontend
     restart: unless-stopped
     ports:
       - "80:80"
