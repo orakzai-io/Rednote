@@ -13,10 +13,6 @@ export function useDocuments() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    loadDocuments();
-  }, []);
-
   const loadDocuments = async () => {
     try {
       const data = await apiFetchDocuments();
@@ -25,6 +21,10 @@ export function useDocuments() {
       console.error('Error fetching documents:', err);
     }
   };
+
+  useEffect(() => {
+    loadDocuments();
+  }, []);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -42,9 +42,9 @@ export function useDocuments() {
       await apiUploadDocument(file);
       await loadDocuments();
       if (fileInputRef.current) fileInputRef.current.value = '';
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setUploadError(err.message || 'Error uploading file.');
+      setUploadError(err instanceof Error ? err.message : 'Error uploading file.');
     } finally {
       setIsUploading(false);
     }

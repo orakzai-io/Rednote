@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 // Mock the auth lib
 const mockLogin = vi.fn();
@@ -15,15 +14,15 @@ const mockClaimGuestDocuments = vi.fn();
 const mockDeleteAccount = vi.fn();
 
 vi.mock('../../lib/auth', () => ({
-  login: (...args: any[]) => mockLogin(...args),
-  register: (...args: any[]) => mockRegister(...args),
-  logout: (...args: any[]) => mockLogout(...args),
-  getMe: (...args: any[]) => mockGetMe(...args),
-  setToken: (...args: any[]) => mockSetToken(...args),
-  clearToken: (...args: any[]) => mockClearToken(...args),
-  getToken: (...args: any[]) => mockGetToken(...args),
-  claimGuestDocuments: (...args: any[]) => mockClaimGuestDocuments(...args),
-  deleteAccount: (...args: any[]) => mockDeleteAccount(...args),
+  login: (...args: unknown[]) => mockLogin(...args),
+  register: (...args: unknown[]) => mockRegister(...args),
+  logout: (...args: unknown[]) => mockLogout(...args),
+  getMe: (...args: unknown[]) => mockGetMe(...args),
+  setToken: (...args: unknown[]) => mockSetToken(...args),
+  clearToken: (...args: unknown[]) => mockClearToken(...args),
+  getToken: (...args: unknown[]) => mockGetToken(...args),
+  claimGuestDocuments: (...args: unknown[]) => mockClaimGuestDocuments(...args),
+  deleteAccount: (...args: unknown[]) => mockDeleteAccount(...args),
 }));
 
 // Mock crypto.randomUUID for guest ID

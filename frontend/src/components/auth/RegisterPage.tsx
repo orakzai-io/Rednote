@@ -32,8 +32,8 @@ export function RegisterPage({ onSwitchToLogin, onCancel }: RegisterPageProps) {
     try {
       await register({ email, password });
       if (onCancel) onCancel(); // Close auth screen on successful register
-    } catch (err: any) {
-      setError(err.message || 'Registration failed. Please try again.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

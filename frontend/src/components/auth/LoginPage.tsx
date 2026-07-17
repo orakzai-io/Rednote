@@ -20,8 +20,8 @@ export function LoginPage({ onSwitchToRegister, onCancel }: LoginPageProps) {
     try {
       await login({ email, password });
       if (onCancel) onCancel(); // Close auth screen on successful login
-    } catch (err: any) {
-      setError(err.message || 'Login failed. Please try again.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

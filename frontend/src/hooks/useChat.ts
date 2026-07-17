@@ -100,14 +100,14 @@ export function useChat(selectedDocId: string | null) {
           },
         }
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setMessages((prev) => {
         const next = [...prev];
         if (next.length > 0) {
           next[next.length - 1] = {
             role: 'assistant',
-            content: `Error: ${err.message || 'An error occurred while streaming response.'}`,
+            content: `Error: ${err instanceof Error ? err.message : 'An error occurred while streaming response.'}`,
           };
         }
         return next;

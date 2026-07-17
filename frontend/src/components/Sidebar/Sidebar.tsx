@@ -9,7 +9,7 @@ interface SidebarProps {
   selectedDocId: string | null;
   isUploading: boolean;
   uploadError: string | null;
-  fileInputRef: any;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDocumentSelect: (id: string) => void;
   onDocumentDelete: (id: string, event: React.MouseEvent) => void;
@@ -51,8 +51,8 @@ export function Sidebar({
     if (confirmed) {
       try {
         await deleteAccount();
-      } catch (err: any) {
-        alert(err.message || "Failed to delete account");
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : "Failed to delete account");
       }
     }
   };

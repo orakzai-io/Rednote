@@ -101,7 +101,7 @@ export async function streamChat(
 
       callbacks.onChunk(displayContent, sources);
     }
-  } catch (error: any) {
-    callbacks.onError(error.message || 'Chat request failed');
+  } catch (error: unknown) {
+    callbacks.onError(error instanceof Error ? error.message : 'Chat request failed');
   }
 }

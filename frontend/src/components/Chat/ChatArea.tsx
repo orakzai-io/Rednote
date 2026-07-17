@@ -10,7 +10,7 @@ interface ChatAreaProps {
   isStreaming: boolean;
   documents: DocumentInfo[];
   selectedDocId: string | null;
-  messagesEndRef: any;
+  messagesEndRef: React.RefObject<HTMLDivElement | null>;
   onInputChange: (value: string) => void;
   onSendMessage: (e: React.FormEvent) => void;
   onClearChat: () => void;
