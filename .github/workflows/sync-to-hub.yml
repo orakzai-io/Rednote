@@ -8,9 +8,15 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: huggingface/hub-sync@v0.1.0
+      - uses: actions/checkout@v4
         with:
-          github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: orakzai-io/Rednote
-          hf_token: ${{ secrets.HF_TOKEN }}
+          fetch-depth: 0
+
+      - name: Push to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          # Force push the entire repository to your Space
+          git push --force https://orakzai-io:$HF_TOKEN@huggingface.co/spaces/orakzai-io/Rednote HEAD:main
