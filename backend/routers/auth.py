@@ -4,7 +4,6 @@ from typing import Any, cast
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 from db.session import get_async_session
 from models.db import User, Document
 from schemas.schemas import UserCreate, UserRead, UserUpdate
@@ -38,6 +37,7 @@ router.include_router(
     prefix="/users",
     tags=["users"],
 )
+
 @router.delete("/auth/me", status_code=204, tags=["auth"])
 async def delete_my_account(
     user: User = Depends(current_active_user),
