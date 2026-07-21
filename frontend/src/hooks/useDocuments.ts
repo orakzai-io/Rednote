@@ -51,17 +51,23 @@ export function useDocuments() {
     }
   };
 
-  const handleDeleteDocument = async (id: string, event: React.MouseEvent) => {
-    event.stopPropagation();
-    if (!confirm('Are you sure you want to delete this document?')) return;
+  const [docToDelete, setDocToDelete] = useState<string | null>(null);
 
+  const confirmDeleteDocument = (id: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDocToDelete(id);
+  };
+
+  const executeDeleteDocument = async () => {
+    if (!docToDelete) return;
+    const id = docToDelete;
+    setDocToDelete(null);
     try {
       await apiDeleteDocument(id);
       if (selectedDocId === id) setSelectedDocId(null);
       await loadDocuments();
     } catch (err) {
       console.error('Error deleting document:', err);
-      alert('Failed to delete document.');
     }
   };
 
@@ -74,9 +80,12 @@ export function useDocuments() {
     selectedDocId,
     isUploading,
     uploadError,
+    docToDelete,
+    setDocToDelete,
     fileInputRef,
     handleFileUpload,
-    handleDeleteDocument,
+    handleDeleteDocument: confirmDeleteDocument,
+    executeDeleteDocument,
     handleDocumentSelect,
   };
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { ChatArea } from './components/Chat/ChatArea';
 import { SourceModal } from './components/SourceModal';
+import { ConfirmModal } from './components/ConfirmModal';
 import { LoginPage } from './components/auth/LoginPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { useDocuments } from './hooks/useDocuments';
@@ -67,6 +68,17 @@ function AppContent({ onShowAuth }: { onShowAuth: (view: 'login' | 'register') =
         <SourceModal
           source={activeSource}
           onClose={() => setActiveSource(null)}
+        />
+      )}
+
+      {documentsHook.docToDelete && (
+        <ConfirmModal
+          title="Delete Document"
+          message="Are you sure you want to delete this document? This action cannot be undone."
+          confirmText="Delete"
+          cancelText="Cancel"
+          onConfirm={documentsHook.executeDeleteDocument}
+          onCancel={() => documentsHook.setDocToDelete(null)}
         />
       )}
     </div>

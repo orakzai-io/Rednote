@@ -3,6 +3,7 @@ import type { DocumentInfo } from '../../types';
 import { UploadSection } from './UploadSection';
 import { DocumentList } from './DocumentList';
 import { useAuth } from '../../hooks/useAuth';
+import { ConfirmModal } from '../ConfirmModal';
 
 interface SidebarProps {
   documents: DocumentInfo[];
@@ -31,6 +32,8 @@ export function Sidebar({
 }: SidebarProps) {
   const { user, logout, deleteAccount } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside
@@ -44,16 +47,12 @@ export function Sidebar({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleDeleteAccount = async () => {
-    const confirmed = window.confirm(
-      "WARNING: Are you sure you want to delete your account? This action is permanent and will delete all your documents and chat history."
-    );
-    if (confirmed) {
-      try {
-        await deleteAccount();
-      } catch (err: unknown) {
-        alert(err instanceof Error ? err.message : "Failed to delete account");
-      }
+  const executeDeleteAccount = async () => {
+    setShowDeleteModal(false);
+    try {
+      await deleteAccount();
+    } catch (err: unknown) {
+      console.error(err);
     }
   };
 
@@ -121,7 +120,7 @@ export function Sidebar({
               {/* Logout Button */}
               <button
                 onClick={() => {
-                  logout();
+                  setShowSignOutModal(true);
                   setMenuOpen(false);
                 }}
                 style={{
@@ -152,7 +151,7 @@ export function Sidebar({
               {/* Delete Account Button */}
               <button
                 onClick={() => {
-                  handleDeleteAccount();
+                  setShowDeleteModal(true);
                   setMenuOpen(false);
                 }}
                 style={{
@@ -368,6 +367,31 @@ export function Sidebar({
             </button>
           )}
         </div>
+      )}
+
+      {showDeleteModal && (
+        <ConfirmModal
+          title="Delete Account"
+          message="WARNING: Are you sure you want to delete your account? This action is permanent and will delete all your documents and chat history."
+          confirmText="Delete Account"
+          cancelText="Cancel"
+          onConfirm={executeDeleteAccount}
+          onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
+
+      {showSignOutModal && (
+        <ConfirmModal
+          title="Sign Out"
+          message="Are you sure you want to sign out of your account?"
+          confirmText="Sign Out"
+          cancelText="Cancel"
+          onConfirm={() => {
+            setShowSignOutModal(false);
+            logout();
+          }}
+          onCancel={() => setShowSignOutModal(false)}
+        />
       )}
     </aside>
   );
