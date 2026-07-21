@@ -28,8 +28,8 @@ export async function uploadDocument(file: File): Promise<void> {
   });
 
   if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.detail || 'Upload failed');
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || `Upload failed (${res.status})`);
   }
 }
 
@@ -69,8 +69,8 @@ export async function streamChat(
     });
 
     if (!res.ok) {
-      const errData = await res.json();
-      throw new Error(errData.detail || 'Chat request failed');
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.detail || `Chat request failed (${res.status})`);
     }
 
     if (!res.body) throw new Error('No response body for streaming');

@@ -39,8 +39,8 @@ export async function login(payload: LoginPayload): Promise<AuthResponse> {
   });
 
   if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.detail || 'Login failed');
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || `Login failed (${res.status})`);
   }
 
   return res.json();
@@ -54,8 +54,8 @@ export async function register(payload: RegisterPayload): Promise<UserInfo> {
   });
 
   if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.detail?.[0]?.msg || errData.detail || 'Registration failed');
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail?.[0]?.msg || errData.detail || `Registration failed (${res.status})`);
   }
 
   return res.json();
@@ -71,8 +71,8 @@ export async function logout(): Promise<void> {
   });
 
   if (!res.ok) {
-    const errData = await res.json();
-    throw new Error(errData.detail || 'Logout failed');
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || `Logout failed (${res.status})`);
   }
 }
 
