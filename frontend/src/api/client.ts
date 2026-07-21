@@ -1,7 +1,7 @@
 import type { DocumentInfo, Message, Source } from '../types';
 import { getAuthHeaders } from '../lib/auth';
 
-export const API_URL = import.meta.env.VITE_API_URL ?? '';
+export const API_URL = import.meta.env.VITE_API_URL ?? '/api';
 
 
 export async function fetchDocuments(): Promise<DocumentInfo[]> {
